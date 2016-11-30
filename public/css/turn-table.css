@@ -63,15 +63,25 @@ table {
 
 body {
   width: 100%;
-	background-color: #730600;
+	background-image: url('../images/blurred-image.png');
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-position: center;
+}
+
+.background-color {
+	height: 100%;
+	background-color: rgba(115, 6, 0, 0.3);
 }
 
 .turn-table {
-  margin: 20px auto 0px;
-  width: 95%;
+  margin: auto;
+  width: 80%;
   display: flex;
   z-index: -100;
-	padding-left: 15%;
+	padding-top: 2%;
+	padding-bottom: 3%;
+	padding-left: 18%
 }
 
 .record {
@@ -79,6 +89,7 @@ body {
 }
 
 .record img {
+	margin-top: 15px;
   animation-name: myframes;
   animation-duration: 5s;
   animation-timing-function: linear;
@@ -118,7 +129,42 @@ body {
 }
 
 footer {
+	position: absolute;
+	z-index: 1000000;
 	background-color: #000;
-	padding: 5px;
-	color: #fff
+	padding: 15px;
+	color: #fff;
+	width: 97.6%
+}
+
+footer > p {
+	text-align: center;
+	font-size: 10px;
+}
+
+.app-content {
+	background-color: rgba(26, 26, 26, 0.7);
+	width: 6%;
+	top: 0px;
+	height: 100%;
+	position: absolute;
+	z-index: 10000;
+	display: flex;
+	flex-flow: column;
+	box-shadow: 6px 4px 25px black;
+}
+
+.contents {
+	width: 100%;
+}
+
+.arrow {
+	background-image: url('../images/angle-arrow-pointing-to-right.png');
+	background-repeat: no-repeat;
+	width: 100%;
+}
+
+
+.trigger {
+	text-align: center;
 }
