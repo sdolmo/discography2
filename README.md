@@ -1,3 +1,3 @@
 # Discography 2
 
-Web music player for music lovers
+Desktop music player for music lovers
