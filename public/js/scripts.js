@@ -10,3 +10,8 @@ $('.trigger').on('click', function(){
     $('.record img').css('animation-play-state', 'paused');
   }
 });
+
+$('.arrow').on('click', function(){
+  $('.app-content').toggleClass('clicked');
+  $('.arrow').toggleClass('clicked');
+});
