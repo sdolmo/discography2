@@ -7,11 +7,13 @@ var IndexRoute = ReactRouter.IndexRoute;
 
 var BasePage = require('./components/BasePage.jsx');
 var HomePage = require('./components/HomePage.jsx');
+var AlbumPage = require('./components/AlbumPage.jsx');
 
 var Routes = (
   <Router history={hashHistory}>
     <Route path="/" component={BasePage} >
       <IndexRoute component={HomePage} />
+      <Route path="/album/:albumId" component={AlbumPage} />
     </Route>
   </Router>
 );

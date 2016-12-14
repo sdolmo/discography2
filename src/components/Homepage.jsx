@@ -1,12 +1,21 @@
 var React = require('react');
-var ReactRouter = require('react-router');
-var Link = ReactRouter.Link;
+var SearchForm = require('./forms/SearchForm.jsx');
+var Album = require('./Album.jsx');
 
 var HomePage = React.createClass({
+  getInitialState: function() {
+    return {albums: []};
+  },
+
+  handleData: function() {
+    this.setState({albums: this.refs.formData.state.albums})
+  },
+
   render: function() {
     return (
       <div>
-        <h1>Home Page</h1>
+        <SearchForm ref="formData" handleData={this.handleData}/>
+        <Album albums={this.state.albums}/>
       </div>
     );
   }

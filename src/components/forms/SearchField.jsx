@@ -5,8 +5,12 @@ var SearchField = React.createClass({
     return {value: ""}
   },
 
-  onChange: function() {
+  onChange: function(e) {
+    this.setState({value: e.target.value});
+  },
 
+  clear: function() {
+    this.setState({value: ""});
   },
 
   render: function(){

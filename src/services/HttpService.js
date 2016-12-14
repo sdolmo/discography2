@@ -1,9 +1,10 @@
 var Fetch = require('whatwg-fetch');
-var baseUrl = "http://localhost:9000";
+var baseUrl = "https://api.spotify.com/v1/search?query=";
+var baseUrl2 = "&offset=0&limit=20&type=album";
 
 var service = {
-  get: function() {
-    return fetch(baseUrl + url)
+  get: function(url) {
+    return fetch(baseUrl + url + baseUrl2)
     .then(function(response){
       return response.json();
     });
