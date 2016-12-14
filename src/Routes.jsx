@@ -12,7 +12,8 @@ var Routes = (
   <Router history={hashHistory}>
     <Route path="/" component={BasePage} >
       <IndexRoute component={HomePage} />
-      <Route path="" />
     </Route>
   </Router>
 );
+
+module.exports = Routes;
