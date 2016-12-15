@@ -27686,9 +27686,11 @@ var Album = React.createClass({
   render: function () {
 
     var styles = {
+      overflow: "hidden",
       overflow: "scroll",
       marginTop: 30,
-      textAlign: "center"
+      textAlign: "center",
+      height: 600
     };
 
     var createItem = function (album, index) {
