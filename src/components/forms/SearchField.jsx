@@ -14,8 +14,12 @@ var SearchField = React.createClass({
   },
 
   render: function(){
+    var styles = {
+      display: "inline"
+    };
+
     return (
-      <div>
+      <div style={styles}>
         <input placeholder="Search" onChange={this.onChange} value={this.state.value}/>
       </div>
     );

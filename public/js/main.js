@@ -27610,62 +27610,7 @@ var Routes = React.createElement(
 
 module.exports = Routes;
 
-},{"./components/AlbumPage.jsx":258,"./components/BasePage.jsx":259,"./components/HomePage.jsx":260,"react":231,"react-router":200}],256:[function(require,module,exports){
-var React = require('react');
-var AlbumItems = require('./AlbumItems.jsx');
-
-var Album = React.createClass({
-  displayName: 'Album',
-
-  render: function () {
-
-    var createItem = function (album, index) {
-      if (album.album_type === "album") {
-        return React.createElement(
-          'div',
-          { key: index + album, className: 'col-sm-4 albums' },
-          React.createElement(AlbumItems, { albumImage: album.images[1].url, albumTitle: album.name })
-        );
-      }
-    };
-
-    return React.createElement(
-      'div',
-      null,
-      React.createElement(
-        'ul',
-        null,
-        this.props.albums.map(createItem)
-      )
-    );
-  }
-});
-
-module.exports = Album;
-
-},{"./AlbumItems.jsx":257,"react":231}],257:[function(require,module,exports){
-var React = require('react');
-
-var AlbumItems = React.createClass({
-  displayName: 'AlbumItems',
-
-  render: function () {
-    return React.createElement(
-      'div',
-      null,
-      React.createElement(
-        'h4',
-        null,
-        this.props.albumTitle
-      ),
-      React.createElement('img', { src: this.props.albumImage })
-    );
-  }
-});
-
-module.exports = AlbumItems;
-
-},{"react":231}],258:[function(require,module,exports){
+},{"./components/AlbumPage.jsx":256,"./components/BasePage.jsx":257,"./components/HomePage.jsx":258,"react":231,"react-router":200}],256:[function(require,module,exports){
 var React = require('react');
 
 var AlbumPage = React.createClass({
@@ -27686,7 +27631,7 @@ var AlbumPage = React.createClass({
 
 module.exports = AlbumPage;
 
-},{"react":231}],259:[function(require,module,exports){
+},{"react":231}],257:[function(require,module,exports){
 var React = require('react');
 
 var BasePage = React.createClass({
@@ -27703,10 +27648,10 @@ var BasePage = React.createClass({
 
 module.exports = BasePage;
 
-},{"react":231}],260:[function(require,module,exports){
+},{"react":231}],258:[function(require,module,exports){
 var React = require('react');
 var SearchForm = require('./forms/SearchForm.jsx');
-var Album = require('./Album.jsx');
+var Album = require('./albums/Album.jsx');
 
 var HomePage = React.createClass({
   displayName: 'HomePage',
@@ -27731,7 +27676,81 @@ var HomePage = React.createClass({
 
 module.exports = HomePage;
 
-},{"./Album.jsx":256,"./forms/SearchForm.jsx":262,"react":231}],261:[function(require,module,exports){
+},{"./albums/Album.jsx":259,"./forms/SearchForm.jsx":262,"react":231}],259:[function(require,module,exports){
+var React = require('react');
+var AlbumItems = require('./AlbumItems.jsx');
+
+var Album = React.createClass({
+  displayName: 'Album',
+
+  render: function () {
+
+    var styles = {
+      overflow: "scroll",
+      marginTop: 30,
+      textAlign: "center"
+    };
+
+    var createItem = function (album, index) {
+      if (album.album_type === "album") {
+        return React.createElement(
+          'div',
+          { key: index + album, className: 'col-sm-4 albums' },
+          React.createElement(AlbumItems, { albumImage: album.images[1].url, albumTitle: album.name })
+        );
+      }
+    };
+
+    return React.createElement(
+      'div',
+      { style: styles },
+      React.createElement(
+        'ul',
+        null,
+        this.props.albums.map(createItem)
+      )
+    );
+  }
+});
+
+module.exports = Album;
+
+},{"./AlbumItems.jsx":260,"react":231}],260:[function(require,module,exports){
+var React = require('react');
+
+var AlbumItems = React.createClass({
+  displayName: "AlbumItems",
+
+  render: function () {
+    var styles = {
+      h4: {
+        fontSize: 10,
+        color: "white"
+      },
+
+      img: {
+        width: 200,
+        marginBottom: 40
+      }
+    };
+
+    return React.createElement(
+      "div",
+      null,
+      React.createElement(
+        "h4",
+        { style: styles.h4 },
+        this.props.albumTitle
+      ),
+      React.createElement("br", null),
+      React.createElement("img", { style: styles.img, src: this.props.albumImage })
+    );
+  }
+});
+
+module.exports = AlbumItems;
+
+},{"react":231}],261:[function(require,module,exports){
 var React = require('react');
 
 var SearchField = React.createClass({
@@ -27750,9 +27769,13 @@ var SearchField = React.createClass({
   },
 
   render: function () {
+    var styles = {
+      display: "inline"
+    };
+
     return React.createElement(
       "div",
-      null,
+      { style: styles },
       React.createElement("input", { placeholder: "Search", onChange: this.onChange, value: this.state.value })
     );
   }
@@ -27792,13 +27815,21 @@ var SearchForm = React.createClass({
   },
 
   render: function () {
+    var styles = {
+      textAlign: "center",
+      button: {
+        display: "inline",
+        marginLeft: 10
+      }
+    };
+
     return React.createElement(
       'div',
-      null,
+      { style: styles },
       React.createElement(SearchField, { ref: 'fieldSearch' }),
       React.createElement(
         'div',
-        null,
+        { style: styles.button },
         React.createElement(
           'button',
           { onClick: this.onSubmit },

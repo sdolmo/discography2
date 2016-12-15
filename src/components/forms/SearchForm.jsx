@@ -27,10 +27,18 @@ var SearchForm = React.createClass({
   },
 
   render: function() {
+    var styles = {
+      textAlign: "center",
+      button: {
+        display: "inline",
+        marginLeft: 10
+      }
+    };
+
     return (
-      <div>
+      <div style={styles}>
         <SearchField ref="fieldSearch"/>
-        <div>
+        <div style={styles.button}>
           <button onClick={this.onSubmit}>Submit</button>
         </div>
       </div>

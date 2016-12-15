@@ -4,7 +4,11 @@ var AlbumItems = require('./AlbumItems.jsx');
 var Album = React.createClass({
   render: function() {
 
-
+    var styles = {
+      overflow: "scroll",
+      marginTop: 30,
+      textAlign: "center"
+    };
 
     var createItem = function(album, index){
       if (album.album_type === "album") {
@@ -17,7 +21,7 @@ var Album = React.createClass({
     };
 
     return (
-      <div>
+      <div style={styles}>
         <ul>{this.props.albums.map(createItem)}</ul>
       </div>
     );

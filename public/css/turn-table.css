@@ -134,13 +134,16 @@ body {
 	top: 0px;
 	height: 100%;
 	position: fixed;
-	z-index: 10000;
 	box-shadow: 6px 4px 25px black;
 	transition: width 1s
 }
 
 .app-content.clicked {
 	width: 5%;
+}
+
+.content {
+	position: static;
 }
 
 .arrow {
@@ -156,10 +159,10 @@ body {
 }
 
 .arrow.clicked {
-	margin-left: 20px;
+	margin-left: 50%;
 }
 
-.arrow:hover {
+.arrow.hover {
 	transform: rotateY(180deg);
 }
 

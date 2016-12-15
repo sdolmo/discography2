@@ -1,6 +1,6 @@
 var React = require('react');
 var SearchForm = require('./forms/SearchForm.jsx');
-var Album = require('./Album.jsx');
+var Album = require('./albums/Album.jsx');
 
 var HomePage = React.createClass({
   getInitialState: function() {
@@ -12,6 +12,7 @@ var HomePage = React.createClass({
   },
 
   render: function() {
+
     return (
       <div>
         <SearchForm ref="formData" handleData={this.handleData}/>
