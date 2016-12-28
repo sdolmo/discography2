@@ -14,9 +14,11 @@ var SearchForm = React.createClass({
     e.preventDefault();
     var searchTerm = this.refs.fieldSearch.state.value;
 
-    this.refs.fieldSearch.clear();
+    if (searchTerm) {
+      this.refs.fieldSearch.clear();
 
-    Actions.getAlbums(searchTerm);
+      Actions.getAlbums(searchTerm);
+    }
   },
 
   onChange: function(event, data) {
@@ -26,21 +28,28 @@ var SearchForm = React.createClass({
     this.props.handleData()
   },
 
+  componentDidMount: function() {
+    $('.searchButton').hover(function(){
+      $(this).addClass('hover');
+      },
+      function() {
+        $(this).removeClass('hover');
+      }
+    );
+    $('.searchButton').on('click', function() {
+      $('.searchBox').removeClass('clicked')
+    });
+  },
+
   render: function() {
     var styles = {
-      textAlign: "center",
-      button: {
-        display: "inline",
-        marginLeft: 10
-      }
+      textAlign: "center"
     };
 
     return (
       <div style={styles}>
         <SearchField ref="fieldSearch"/>
-        <div style={styles.button}>
-          <button onClick={this.onSubmit}>Submit</button>
-        </div>
+        <button onClick={this.onSubmit} className="searchButton"></button>
       </div>
     );
   }

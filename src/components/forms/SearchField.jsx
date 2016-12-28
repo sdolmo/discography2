@@ -9,6 +9,20 @@ var SearchField = React.createClass({
     this.setState({value: e.target.value});
   },
 
+  componentDidMount: function() {
+    $('.searchBox').on('click', function(){
+      $(this).addClass('clicked');
+    });
+
+    $('.searchBox').hover(
+      function() {
+        $(this).addClass('hover');
+      }, function() {
+        $(this).removeClass('hover');
+      }
+    );
+  },
+
   clear: function() {
     this.setState({value: ""});
   },
@@ -20,7 +34,7 @@ var SearchField = React.createClass({
 
     return (
       <div style={styles}>
-        <input placeholder="Search" onChange={this.onChange} value={this.state.value}/>
+        <input className="searchBox" placeholder="Search" onChange={this.onChange} value={this.state.value}/>
       </div>
     );
   }

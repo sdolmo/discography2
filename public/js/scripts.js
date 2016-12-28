@@ -11,8 +11,6 @@ $('.trigger').on('click', function(){
   }
 });
 
-
-
 $('.arrow').on('click', function(){
   $('.app-content').toggleClass('clicked');
   $('.arrow').toggleClass('clicked');
@@ -21,7 +19,7 @@ $('.arrow').on('click', function(){
   if (clickedContent) {
     $('#main').fadeOut(100);
   } else {
-    $('#main').fadeIn(2000);
+    $('#main').fadeIn(3000);
   }
 });
 

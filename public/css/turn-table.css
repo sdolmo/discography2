@@ -162,6 +162,46 @@ body {
 	transform: rotateY(180deg);
 }
 
+.searchBox {
+	border: none;
+	outline: none;
+	background: rgba(0, 0, 0, 0);
+	font-size: 17px;
+	color: white;
+	border-bottom: 1px solid #797473;
+	transition: border-bottom .2s ease-out, text-indent .2s ease-out
+}
+
+.searchBox.hover {
+	border-bottom: 1px solid white;
+	text-indent: 5px
+}
+
+.searchBox.clicked {
+	border-bottom: 1px solid white;
+	text-indent: 5px
+}
+
+.searchButton {
+	border: none;
+	outline: none;
+	background-image: url('../images/magnifying-glass.png');
+	background-color: rgba(0, 0, 0, 0);
+  background-size: 70%;
+  background-repeat: no-repeat;
+	margin-left: 10px;
+	width: 30px;
+	height: 22px;
+	display: inline;
+	cursor: pointer;
+	padding-bottom: 6px;
+	transition: all .2s ease-out
+}
+
+.searchButton.hover {
+	background-image: url('../images/magnifying-glass-hover.png');
+}
+
 footer {
 	position: absolute;
 	z-index: 1000000;

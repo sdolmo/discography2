@@ -1,6 +1,6 @@
 var Fetch = require('whatwg-fetch');
-var baseUrl = "https://api.spotify.com/v1/search?query=";
-var baseUrl2 = "&offset=0&limit=20&type=album";
+var baseUrl = "https://api.spotify.com/v1/search?q=";
+var baseUrl2 = "&type=album,artist,track";
 
 var service = {
   get: function(url) {

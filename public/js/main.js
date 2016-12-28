@@ -27612,6 +27612,8 @@ module.exports = Routes;
 
 },{"./components/AlbumPage.jsx":256,"./components/BasePage.jsx":257,"./components/HomePage.jsx":258,"react":231,"react-router":200}],256:[function(require,module,exports){
 var React = require('react');
+var ReactRouter = require('react-router');
+var Link = ReactRouter.Link;
 
 var AlbumPage = React.createClass({
   displayName: 'AlbumPage',
@@ -27620,6 +27622,19 @@ var AlbumPage = React.createClass({
     return React.createElement(
       'div',
       null,
+      React.createElement(
+        Link,
+        { to: '/' },
+        React.createElement(
+          'div',
+          null,
+          React.createElement(
+            'p',
+            null,
+            'Search'
+          )
+        )
+      ),
       React.createElement(
         'h1',
         null,
@@ -27631,7 +27646,7 @@ var AlbumPage = React.createClass({
 
 module.exports = AlbumPage;
 
-},{"react":231}],257:[function(require,module,exports){
+},{"react":231,"react-router":200}],257:[function(require,module,exports){
 var React = require('react');
 
 var BasePage = React.createClass({
@@ -27665,6 +27680,7 @@ var HomePage = React.createClass({
   },
 
   render: function () {
+
     return React.createElement(
       'div',
       null,
@@ -27679,6 +27695,8 @@ module.exports = HomePage;
 },{"./albums/Album.jsx":259,"./forms/SearchForm.jsx":262,"react":231}],259:[function(require,module,exports){
 var React = require('react');
 var AlbumItems = require('./AlbumItems.jsx');
+var ReactRouter = require('react-router');
+var Link = ReactRouter.Link;
 
 var Album = React.createClass({
   displayName: 'Album',
@@ -27690,7 +27708,8 @@ var Album = React.createClass({
       overflow: "scroll",
       marginTop: 30,
       textAlign: "center",
-      height: 600
+      height: 550,
+      paddingBottom: 50
     };
 
     var createItem = function (album, index) {
@@ -27698,7 +27717,11 @@ var Album = React.createClass({
         return React.createElement(
           'div',
           { key: index + album, className: 'col-sm-4 albums' },
-          React.createElement(AlbumItems, { albumImage: album.images[1].url, albumTitle: album.name })
+          React.createElement(
+            Link,
+            { to: '/album/1' },
+            React.createElement(AlbumItems, { albumImage: album.images[1].url, albumTitle: album.name })
+          )
         );
       }
     };
@@ -27717,7 +27740,7 @@ var Album = React.createClass({
 
 module.exports = Album;
 
-},{"./AlbumItems.jsx":260,"react":231}],260:[function(require,module,exports){
+},{"./AlbumItems.jsx":260,"react":231,"react-router":200}],260:[function(require,module,exports){
 var React = require('react');
 
 var AlbumItems = React.createClass({
@@ -27756,7 +27779,7 @@ module.exports = AlbumItems;
 var React = require('react');
 
 var SearchField = React.createClass({
-  displayName: "SearchField",
+  displayName: 'SearchField',
 
   getInitialState: function () {
     return { value: "" };
@@ -27764,6 +27787,18 @@ var SearchField = React.createClass({
 
   onChange: function (e) {
     this.setState({ value: e.target.value });
+  },
+
+  componentDidMount: function () {
+    $('.searchBox').on('click', function () {
+      $(this).addClass('clicked');
+    });
+
+    $('.searchBox').hover(function () {
+      $(this).addClass('hover');
+    }, function () {
+      $(this).removeClass('hover');
+    });
   },
 
   clear: function () {
@@ -27776,9 +27811,9 @@ var SearchField = React.createClass({
     };
 
     return React.createElement(
-      "div",
+      'div',
       { style: styles },
-      React.createElement("input", { placeholder: "Search", onChange: this.onChange, value: this.state.value })
+      React.createElement('input', { className: 'searchBox', placeholder: 'Search', onChange: this.onChange, value: this.state.value })
     );
   }
 });
@@ -27804,9 +27839,11 @@ var SearchForm = React.createClass({
     e.preventDefault();
     var searchTerm = this.refs.fieldSearch.state.value;
 
-    this.refs.fieldSearch.clear();
+    if (searchTerm) {
+      this.refs.fieldSearch.clear();
 
-    Actions.getAlbums(searchTerm);
+      Actions.getAlbums(searchTerm);
+    }
   },
 
   onChange: function (event, data) {
@@ -27816,28 +27853,27 @@ var SearchForm = React.createClass({
     this.props.handleData();
   },
 
+  componentDidMount: function () {
+    $('.searchButton').hover(function () {
+      $(this).addClass('hover');
+    }, function () {
+      $(this).removeClass('hover');
+    });
+    $('.searchButton').on('click', function () {
+      $('.searchBox').removeClass('clicked');
+    });
+  },
+
   render: function () {
     var styles = {
-      textAlign: "center",
-      button: {
-        display: "inline",
-        marginLeft: 10
-      }
+      textAlign: "center"
     };
 
     return React.createElement(
       'div',
       { style: styles },
       React.createElement(SearchField, { ref: 'fieldSearch' }),
-      React.createElement(
-        'div',
-        { style: styles.button },
-        React.createElement(
-          'button',
-          { onClick: this.onSubmit },
-          'Submit'
-        )
-      )
+      React.createElement('button', { onClick: this.onSubmit, className: 'searchButton' })
     );
   }
 });
@@ -27878,8 +27914,8 @@ module.exports = AlbumStore;
 
 },{"../services/HttpService.js":266,"./Actions.jsx":264,"reflux":249}],266:[function(require,module,exports){
 var Fetch = require('whatwg-fetch');
-var baseUrl = "https://api.spotify.com/v1/search?query=";
-var baseUrl2 = "&offset=0&limit=20&type=album";
+var baseUrl = "https://api.spotify.com/v1/search?q=";
+var baseUrl2 = "&type=album,artist,track";
 
 var service = {
   get: function (url) {
