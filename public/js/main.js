@@ -27612,11 +27612,28 @@ module.exports = Routes;
 
 },{"./components/AlbumPage.jsx":256,"./components/BasePage.jsx":257,"./components/HomePage.jsx":258,"react":231,"react-router":200}],256:[function(require,module,exports){
 var React = require('react');
+var Reflux = require('reflux');
+var Actions = require('../reflux/Actions.jsx');
+var AlbumPageStore = require('../reflux/AlbumPageStore.jsx');
 var ReactRouter = require('react-router');
 var Link = ReactRouter.Link;
 
 var AlbumPage = React.createClass({
   displayName: 'AlbumPage',
+
+  mixins: [Reflux.listenTo(AlbumPageStore, 'onChange')],
+  getInitialState: function () {
+    return { tracks: [], album: "" };
+  },
+
+  componentWillMount: function () {
+    Actions.getTracks(this.props.params.albumId);
+    this.setState({ album: this.props.params.albumId });
+  },
+
+  onChange: function (event, data) {
+    console.log(data);
+  },
 
   render: function () {
     return React.createElement(
@@ -27638,7 +27655,7 @@ var AlbumPage = React.createClass({
       React.createElement(
         'h1',
         null,
-        'Album'
+        this.state.album
       )
     );
   }
@@ -27646,7 +27663,7 @@ var AlbumPage = React.createClass({
 
 module.exports = AlbumPage;
 
-},{"react":231,"react-router":200}],257:[function(require,module,exports){
+},{"../reflux/Actions.jsx":264,"../reflux/AlbumPageStore.jsx":265,"react":231,"react-router":200,"reflux":249}],257:[function(require,module,exports){
 var React = require('react');
 
 var BasePage = React.createClass({
@@ -27694,6 +27711,7 @@ module.exports = HomePage;
 
 },{"./albums/Album.jsx":259,"./forms/SearchForm.jsx":262,"react":231}],259:[function(require,module,exports){
 var React = require('react');
+var AlbumPage = require('../AlbumPage.jsx');
 var AlbumItems = require('./AlbumItems.jsx');
 var ReactRouter = require('react-router');
 var Link = ReactRouter.Link;
@@ -27719,8 +27737,8 @@ var Album = React.createClass({
           { key: index + album, className: 'col-sm-4 albums' },
           React.createElement(
             Link,
-            { to: '/album/1' },
-            React.createElement(AlbumItems, { albumImage: album.images[1].url, albumTitle: album.name })
+            { to: `/album/${ album.id }` },
+            React.createElement(AlbumItems, { albumImage: album.images[1].url, albumTitle: album.name, albumLink: album.href })
           )
         );
       }
@@ -27740,11 +27758,12 @@ var Album = React.createClass({
 
 module.exports = Album;
 
-},{"./AlbumItems.jsx":260,"react":231,"react-router":200}],260:[function(require,module,exports){
+},{"../AlbumPage.jsx":256,"./AlbumItems.jsx":260,"react":231,"react-router":200}],260:[function(require,module,exports){
 var React = require('react');
 
 var AlbumItems = React.createClass({
   displayName: "AlbumItems",
+
 
   render: function () {
     var styles = {
@@ -27880,7 +27899,7 @@ var SearchForm = React.createClass({
 
 module.exports = SearchForm;
 
-},{"../../reflux/Actions.jsx":264,"../../reflux/AlbumStore.jsx":265,"./SearchField.jsx":261,"react":231,"reflux":249}],263:[function(require,module,exports){
+},{"../../reflux/Actions.jsx":264,"../../reflux/AlbumStore.jsx":266,"./SearchField.jsx":261,"react":231,"reflux":249}],263:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Routes = require('./Routes.jsx');
@@ -27890,11 +27909,29 @@ ReactDOM.render(Routes, document.getElementById('main'));
 },{"./Routes.jsx":255,"react":231,"react-dom":47}],264:[function(require,module,exports){
 var Reflux = require('reflux');
 
-var Actions = Reflux.createActions(['getAlbums']);
+var Actions = Reflux.createActions(['getAlbums', 'getTracks']);
 
 module.exports = Actions;
 
 },{"reflux":249}],265:[function(require,module,exports){
+var HTTP = require('../services/HttpService2.js');
+var Reflux = require('reflux');
+var Actions = require('./Actions.jsx');
+
+var AlbumPageStore = Reflux.createStore({
+  listenables: [Actions],
+  getTracks: function (url) {
+    HTTP.get(url).then(function (json) {
+      console.log(json);
+      this.albums = json;
+      this.trigger('change', this.tracks);
+    }.bind(this));
+  }
+});
+
+module.exports = AlbumPageStore;
+
+},{"../services/HttpService2.js":268,"./Actions.jsx":264,"reflux":249}],266:[function(require,module,exports){
 var HTTP = require('../services/HttpService.js');
 var Reflux = require('reflux');
 var Actions = require('./Actions.jsx');
@@ -27912,7 +27949,7 @@ var AlbumStore = Reflux.createStore({
 
 module.exports = AlbumStore;
 
-},{"../services/HttpService.js":266,"./Actions.jsx":264,"reflux":249}],266:[function(require,module,exports){
+},{"../services/HttpService.js":267,"./Actions.jsx":264,"reflux":249}],267:[function(require,module,exports){
 var Fetch = require('whatwg-fetch');
 var baseUrl = "https://api.spotify.com/v1/search?q=";
 var baseUrl2 = "&type=album,artist,track";
@@ -27926,5 +27963,20 @@ var service = {
 };
 
 module.exports = service;
+
+},{"whatwg-fetch":254}],268:[function(require,module,exports){
+var Fetch = require('whatwg-fetch');
+var baseUrl = "https://api.spotify.com/v1/albums/";
+var uri = "/tracks";
+
+var service2 = {
+  get: function (url) {
+    return fetch(baseUrl + url + uri).then(function (response) {
+      return response.json();
+    });
+  }
+};
+
+module.exports = service2;
 
 },{"whatwg-fetch":254}]},{},[263]);

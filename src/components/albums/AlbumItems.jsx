@@ -1,6 +1,7 @@
 var React = require('react');
 
 var AlbumItems = React.createClass({
+
   render: function(){
     var styles = {
       h4: {
