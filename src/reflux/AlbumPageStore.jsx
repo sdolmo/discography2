@@ -8,7 +8,7 @@ var AlbumPageStore = Reflux.createStore({
     HTTP.get(url)
     .then(function(json) {
     console.log(json);
-    this.albums = json;
+    this.tracks = json;
     this.trigger('change', this.tracks);
     }.bind(this));
   }

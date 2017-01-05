@@ -12,7 +12,7 @@ var Album = React.createClass({
       overflow: "scroll",
       marginTop: 30,
       textAlign: "center",
-      height: 550,
+      height: 450,
       paddingBottom: 50
     };
 

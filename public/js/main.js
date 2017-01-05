@@ -27623,22 +27623,88 @@ var AlbumPage = React.createClass({
 
   mixins: [Reflux.listenTo(AlbumPageStore, 'onChange')],
   getInitialState: function () {
-    return { tracks: [], album: "" };
+    return { items: [], albumId: "", tracks: [] };
   },
 
   componentWillMount: function () {
     Actions.getTracks(this.props.params.albumId);
-    this.setState({ album: this.props.params.albumId });
+    this.setState({ albumId: this.props.params.albumId });
   },
 
   onChange: function (event, data) {
-    console.log(data);
+    var items = data.items;
+    this.setState({ items: items });
+
+    var tracks = data.items.map(function (obj) {
+      return { "num": obj.track_number, "name": obj.name, "file": obj.preview_url };
+    });
+    this.setState({ tracks: tracks });
+  },
+
+  handleClick: function () {},
+
+  componentDidMount: function () {
+    var current = 0;
+    var ul = document.getElementById('playlist');
+    var audio = document.querySelectorAll('audio');
+    var source = document.getElementById('audioSource');
+    audio[0].volume = .10;
+
+    ul.onclick = function (event) {
+      event.preventDefault();
+      var target = getEventTarget(event);
+      run(target, source);
+    };
+
+    function getEventTarget(e) {
+      e = e || window.event;
+      return e.target || e.srcElement;
+    };
+
+    function run(link, player) {
+      // var thing = link.parentElement;
+      // thing.addClass('active');
+      player.src = link.href;
+      // par = link.parent();
+      // par.addClass('active').siblings().removeClass('active');
+      audio[0].load();
+      audio[0].play();
+    }
   },
 
   render: function () {
+
+    var styles = {
+      a: {
+        textDecoration: "none",
+        color: "white"
+      },
+      ul: {
+        overflow: "hidden",
+        overflow: "scroll",
+        marginTop: 20,
+        height: 450,
+        paddingBottom: 50
+      }
+    };
+
+    // Events can't be triggered when iterating through an object
+    var createList = function (track, index) {
+      return React.createElement(
+        'li',
+        { key: track + index, className: 'standard' },
+        React.createElement(
+          'a',
+          { style: styles.a, href: track.file },
+          track.name
+        ),
+        React.createElement('hr', null)
+      );
+    };
+
     return React.createElement(
       'div',
-      null,
+      { style: styles },
       React.createElement(
         Link,
         { to: '/' },
@@ -27653,9 +27719,21 @@ var AlbumPage = React.createClass({
         )
       ),
       React.createElement(
-        'h1',
-        null,
-        this.state.album
+        'audio',
+        { id: 'audio', preload: 'auto', tabIndex: '0', controls: 'controls' },
+        React.createElement('source', { id: 'audioSource', type: 'audio/mp3', src: '' }),
+        'Your browser does not support the ',
+        React.createElement(
+          'code',
+          null,
+          'audio'
+        ),
+        ' element.'
+      ),
+      React.createElement(
+        'ul',
+        { style: styles.ul, id: 'playlist' },
+        this.state.tracks.map(createList)
       )
     );
   }
@@ -27726,7 +27804,7 @@ var Album = React.createClass({
       overflow: "scroll",
       marginTop: 30,
       textAlign: "center",
-      height: 550,
+      height: 450,
       paddingBottom: 50
     };
 
@@ -27923,7 +28001,7 @@ var AlbumPageStore = Reflux.createStore({
   getTracks: function (url) {
     HTTP.get(url).then(function (json) {
       console.log(json);
-      this.albums = json;
+      this.tracks = json;
       this.trigger('change', this.tracks);
     }.bind(this));
   }
