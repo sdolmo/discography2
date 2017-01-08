@@ -5,7 +5,7 @@ var AlbumItems = React.createClass({
   render: function(){
     var styles = {
       h4: {
-        fontSize: 10,
+        fontSize: 15,
         color: "white"
       },
 

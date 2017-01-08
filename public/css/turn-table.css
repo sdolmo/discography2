@@ -67,6 +67,7 @@ body {
 	background-repeat: no-repeat;
 	background-size: 100%;
 	background-position: center;
+	font-family: 'Open Sans Condensed', sans-serif;
 }
 
 .background-color {
@@ -128,6 +129,10 @@ body {
    transform: rotate(35deg);
 }
 
+input {
+	font-family: 'Open Sans Condensed', sans-serif;
+}
+
 .app-content {
 	background-color: rgba(26, 26, 26, 0.7);
 	width: 27%;
@@ -166,7 +171,7 @@ body {
 	border: none;
 	outline: none;
 	background: rgba(0, 0, 0, 0);
-	font-size: 17px;
+	font-size: 20px;
 	color: white;
 	border-bottom: 1px solid #797473;
 	transition: border-bottom .2s ease-out, text-indent .2s ease-out
@@ -185,7 +190,7 @@ body {
 .searchButton {
 	border: none;
 	outline: none;
-	background-image: url('../images/magnifying-glass.png');
+	background-image: url('../images/magnifying-glass-hover.png');
 	background-color: rgba(0, 0, 0, 0);
   background-size: 70%;
   background-repeat: no-repeat;
@@ -199,7 +204,7 @@ body {
 }
 
 .searchButton.hover {
-	background-image: url('../images/magnifying-glass-hover.png');
+	background-image: url('../images/magnifying-glass.png');
 }
 
 footer {
