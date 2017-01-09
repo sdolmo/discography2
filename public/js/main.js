@@ -27604,7 +27604,7 @@ var Routes = React.createElement(
     Route,
     { path: '/', component: BasePage },
     React.createElement(IndexRoute, { component: HomePage }),
-    React.createElement(Route, { path: '/album/:albumId', component: AlbumPage })
+    React.createElement(Route, { path: '/album/:albumName/:albumId', component: AlbumPage })
   )
 );
 
@@ -27623,12 +27623,13 @@ var AlbumPage = React.createClass({
 
   mixins: [Reflux.listenTo(AlbumPageStore, 'onChange')],
   getInitialState: function () {
-    return { items: [], albumId: "", tracks: [], list: [] };
+    return { items: [], albumName: "", albumId: "", tracks: [], list: [] };
   },
 
   componentWillMount: function () {
     Actions.getTracks(this.props.params.albumId);
     this.setState({ albumId: this.props.params.albumId });
+    this.setState({ albumName: this.props.params.albumName });
   },
 
   onChange: function (event, data) {
@@ -27722,6 +27723,13 @@ var AlbumPage = React.createClass({
   render: function () {
 
     var styles = {
+      h1: {
+        marginLeft: 20,
+        marginBottom: 20,
+        marginTop: 20,
+        fontSize: 40,
+        color: "white"
+      },
       a: {
         textDecoration: "none",
         marginLeft: 20,
@@ -27736,7 +27744,7 @@ var AlbumPage = React.createClass({
         overflow: "hidden",
         overflow: "scroll",
         marginTop: 20,
-        height: 450,
+        height: 300,
         paddingBottom: 50
       },
       audio: {
@@ -27750,7 +27758,7 @@ var AlbumPage = React.createClass({
         marginLeft: 15
       },
       buttons: {
-        textAlign: "center"
+        marginLeft: 80
       },
       center: {
         marginLeft: 20,
@@ -27793,6 +27801,11 @@ var AlbumPage = React.createClass({
           { style: styles.back },
           '\u2190 Back to Search'
         )
+      ),
+      React.createElement(
+        'h1',
+        { style: styles.h1 },
+        this.state.albumName
       ),
       React.createElement(
         'audio',
@@ -27902,7 +27915,7 @@ var Album = React.createClass({
           { key: index + album, className: 'col-sm-4 albums' },
           React.createElement(
             Link,
-            { to: `/album/${ album.id }` },
+            { to: `/album/${ album.name }/${ album.id }` },
             React.createElement(AlbumItems, { albumImage: album.images[1].url, albumTitle: album.name, albumLink: album.href })
           )
         );
@@ -27997,7 +28010,7 @@ var SearchField = React.createClass({
     return React.createElement(
       'div',
       { style: styles },
-      React.createElement('input', { className: 'searchBox', placeholder: 'Search', onChange: this.onChange, value: this.state.value })
+      React.createElement('input', { className: 'searchBox', placeholder: 'Search Artist', onChange: this.onChange, value: this.state.value })
     );
   }
 });

@@ -26,12 +26,13 @@ $('.arrow').on('click', function(){
 $('.arrow').hover(
   function() {
     var width = $('.app-content').css('width');
+    console.log($('.app-content'));
     if(width === '345.59375px') {
       $(this).addClass("hover");
     } else if (width === '64px') {
       return
     }
   }, function() {
-    $(this).removeClass('hover')
+    $(this).removeClass('hover');
   }
 );

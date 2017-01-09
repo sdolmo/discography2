@@ -20,7 +20,7 @@ var Album = React.createClass({
       if (album.album_type === "album") {
         return (
           <div key={index + album} className="col-sm-4 albums">
-            <Link to={`/album/${album.id}`}><AlbumItems albumImage={album.images[1].url} albumTitle={album.name} albumLink={album.href}/></Link>
+            <Link to={`/album/${album.name}/${album.id}`}><AlbumItems albumImage={album.images[1].url} albumTitle={album.name} albumLink={album.href}/></Link>
           </div>
         );
       }

@@ -8,12 +8,13 @@ var Link = ReactRouter.Link;
 var AlbumPage = React.createClass({
   mixins: [Reflux.listenTo(AlbumPageStore, 'onChange')],
   getInitialState: function() {
-    return {items: [], albumId: "", tracks: [], list: []}
+    return {items: [], albumName:"", albumId: "", tracks: [], list: []}
   },
 
   componentWillMount: function() {
     Actions.getTracks(this.props.params.albumId)
     this.setState({albumId: this.props.params.albumId});
+    this.setState({albumName: this.props.params.albumName});
   },
 
   onChange: function(event, data) {
@@ -110,6 +111,13 @@ var AlbumPage = React.createClass({
   render: function() {
 
     var styles = {
+      h1: {
+        marginLeft: 20,
+        marginBottom: 20,
+        marginTop: 20,
+        fontSize: 40,
+        color: "white"
+      },
       a: {
         textDecoration: "none",
         marginLeft: 20,
@@ -124,7 +132,7 @@ var AlbumPage = React.createClass({
         overflow: "hidden",
         overflow: "scroll",
         marginTop: 20,
-        height: 450,
+        height: 300,
         paddingBottom: 50
       },
       audio: {
@@ -138,7 +146,7 @@ var AlbumPage = React.createClass({
         marginLeft: 15
       },
       buttons: {
-        textAlign: "center"
+        marginLeft: 80
       },
       center: {
         marginLeft: 20,
@@ -167,6 +175,7 @@ var AlbumPage = React.createClass({
     return (
       <div style={styles}>
         <Link to="/"><div style={styles.back}>&larr; Back to Search</div></Link>
+        <h1 style={styles.h1}>{this.state.albumName}</h1>
         <audio style={styles.audio} id="audio" preload="auto" tabIndex="0" controls="controls">
           <source id="audioSource" type="audio/mp3" src=""/>
           Your browser does not support the <code>audio</code> element.

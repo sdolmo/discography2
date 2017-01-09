@@ -13,7 +13,7 @@ var Routes = (
   <Router history={hashHistory}>
     <Route path="/" component={BasePage} >
       <IndexRoute component={HomePage} />
-      <Route path="/album/:albumId" component={AlbumPage} />
+      <Route path="/album/:albumName/:albumId" component={AlbumPage} />
     </Route>
   </Router>
 );

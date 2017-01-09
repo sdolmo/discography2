@@ -34,7 +34,7 @@ var SearchField = React.createClass({
 
     return (
       <div style={styles}>
-        <input className="searchBox" placeholder="Search" onChange={this.onChange} value={this.state.value}/>
+        <input className="searchBox" placeholder="Search Artist" onChange={this.onChange} value={this.state.value}/>
       </div>
     );
   }
