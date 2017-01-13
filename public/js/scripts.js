@@ -26,10 +26,10 @@ $('.arrow').on('click', function(){
 $('.arrow').hover(
   function() {
     var width = $('.app-content').css('width');
-    console.log($('.app-content'));
-    if(width === '345.59375px') {
+    console.log($('.app-content').css('width'));
+    if(width <= '530') {
       $(this).addClass("hover");
-    } else if (width === '64px') {
+    } else if (width >= '100px') {
       return
     }
   }, function() {
