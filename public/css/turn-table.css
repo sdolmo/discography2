@@ -94,7 +94,7 @@ body {
   animation-name: myframes;
   animation-duration: 5s;
   animation-timing-function: linear;
-  animation-delay: 5s;
+  animation-delay: 3s;
   animation-iteration-count: infinite;
   animation-direction: normal;
   animation-play-state: paused;
