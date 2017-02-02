@@ -142,7 +142,7 @@ var AlbumPage = React.createClass({
     };
 
     function run(link, player){
-      thing = link.parentElement.parentElement;
+      var thing = link.parentElement.parentElement;
       $(thing).css('background-color', 'rgba(255, 255, 255, 0.3)');
       $(thing).siblings().css('background-color', '');
       player.src = link.href;
