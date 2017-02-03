@@ -2,6 +2,7 @@
 
 Discography is a responsive [ReactJS](https://facebook.github.io/react/) app that utilizes React Router, CSS animations, and the [Spotify Web API](https://developer.spotify.com/web-api/) to load data.
 
+![](https://github.com/sdolmo/discography2/public/images/DiscDemo.gif/)
 
 ## Demo
 [Discography - Live DEMO] (https://sdolmo.github.io/discography2/#/)
