@@ -213,13 +213,16 @@ footer {
 	background-color: #000;
 	padding: 15px;
 	color: #fff;
-	width: 98.40%;
+	width: 97.5%;
 }
 /* Add Media queries for footer width*/
 
-footer > p {
+footer {
 	text-align: center;
 	font-size: 10px;
+	color: #fff;
+	text-decoration: none;
+	line-height: 15px
 }
 
 

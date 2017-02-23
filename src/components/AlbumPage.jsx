@@ -27,18 +27,13 @@ var AlbumPage = React.createClass({
     this.setState({tracks: tracks})
   },
 
-  handleClick: function() {
-    $('.handle').removeClass('clicked');
-    $('.record img').css('animation-play-state', 'paused');
-  },
-
   componentDidMount: function() {
-    $('.handle').addClass('clicked');
-    $('.record img').css('animation-play-state', 'running');
+    document.querySelector('.handle').addClass('clicked');
+    document.queryselector('.record img').css('animation-play-state', 'running');
     var current;
     var target;
     var ul = document.getElementById('playlist');
-    var playlist = $('#playlist');
+    var playlist = docurment.querySelector('#playlist');
     var audio = document.querySelectorAll('audio');
     var leftTrack = document.getElementById('left-track');
     var rightTrack = document.getElementById('right-track');
