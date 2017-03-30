@@ -28,8 +28,10 @@ var AlbumPage = React.createClass({
   },
 
   componentDidMount: function() {
+    // after the component has mounted the css animations are triggered
     document.querySelector('.handle').addClass('clicked');
     document.queryselector('.record img').css('animation-play-state', 'running');
+
     var current;
     var target;
     var ul = document.getElementById('playlist');
