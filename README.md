@@ -5,7 +5,7 @@ Discography is a responsive [ReactJS](https://facebook.github.io/react/) app tha
 ![](https://github.com/sdolmo/discography2/blob/master/public/images/DiscDemo.gif)
 
 ## Demo
-[Discography - Live DEMO] (https://sdolmo.github.io/discography2/#/)
+[Discography - Live DEMO](https://sdolmo.github.io/discography2/#/)
 
 ## Tools
 Technologies used in this Projects:
